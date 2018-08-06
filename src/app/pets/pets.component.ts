@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {Pet} from '../pet';
+
+import { Pet } from '../pet';
 import { PetService } from '../pet.service';
+
 @Component({
   selector: 'app-pets',
   templateUrl: './pets.component.html',
@@ -8,20 +10,22 @@ import { PetService } from '../pet.service';
 })
 export class PetsComponent implements OnInit {
 
-  constructor(private petService: PetService) { }
-  selectedPet: Pet;
   pets: Pet[];
 
-  onSelect(pet: Pet): void {
-    this.selectedPet = pet;
+  constructor(private petService: PetService) { }
+
+  ngOnInit() {
+    this.getPets();
   }
 
   getPets(): void {
    this.petService.getPets().subscribe(pets => this.pets = pets);
   }
 
-  ngOnInit() {
-    this.getPets
+  delete(pet: Pet): void {
+    this.pets = this.pets.filter(p => p !== pet)
+    this.petService.deletePet(pet)
+      .subscribe();
   }
 
 }

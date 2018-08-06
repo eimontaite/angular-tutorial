@@ -1,7 +1,11 @@
-<h2>
+<h2>My Pets</h2>
   <ul class="pets">
-    <li *ngFor = "let pet of pets" (click)="onSelect(pet)" [class.selected]="pet===selectedPed">
-      <span class="badge">{{pet.id}}</span> {{pet.name}}</li>
+    <li *ngFor = "let pet of pets">
+      <a routerLink="/details/{{pet.id}}">
+      <span class="badge">{{pet.id}}</span> {{pet.name}}
+    </a>
+        <button class="delete" title="Delete this pet"
+                        (click)="delete(pet)">x</button>
+    </li>
   </ul>
-</h2>
-<app-pet-details [pet]="selectedPet"></app-pet-details>
+
